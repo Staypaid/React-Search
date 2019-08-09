@@ -5,8 +5,7 @@ You can find the most recent version of this guide [here](https://github.com/fac
 
 ## Table of Contents
 
-- [Updating to New Releases](#updating-to-new-releases)
-- [Sending Feedback](#sending-feedback)
+
 - [Folder Structure](#folder-structure)
 - [Available Scripts](#available-scripts)
   - [npm start](#npm-start)
@@ -28,50 +27,8 @@ You can find the most recent version of this guide [here](https://github.com/fac
 - [Adding Images, Fonts, and Files](#adding-images-fonts-and-files)
 - [Using the `public` Folder](#using-the-public-folder)
   - [Changing the HTML](#changing-the-html)
-  - [Adding Assets Outside of the Module System](#adding-assets-outside-of-the-module-system)
   - [When to Use the `public` Folder](#when-to-use-the-public-folder)
-- [Using Global Variables](#using-global-variables)
-- [Adding Bootstrap](#adding-bootstrap)
-  - [Using a Custom Theme](#using-a-custom-theme)
-- [Adding Flow](#adding-flow)
-- [Adding Custom Environment Variables](#adding-custom-environment-variables)
-  - [Referencing Environment Variables in the HTML](#referencing-environment-variables-in-the-html)
-  - [Adding Temporary Environment Variables In Your Shell](#adding-temporary-environment-variables-in-your-shell)
-  - [Adding Development Environment Variables In `.env`](#adding-development-environment-variables-in-env)
-- [Can I Use Decorators?](#can-i-use-decorators)
-- [Integrating with an API Backend](#integrating-with-an-api-backend)
-  - [Node](#node)
-  - [Ruby on Rails](#ruby-on-rails)
-- [Proxying API Requests in Development](#proxying-api-requests-in-development)
-  - ["Invalid Host Header" Errors After Configuring Proxy](#invalid-host-header-errors-after-configuring-proxy)
-  - [Configuring the Proxy Manually](#configuring-the-proxy-manually)
-  - [Configuring a WebSocket Proxy](#configuring-a-websocket-proxy)
-- [Using HTTPS in Development](#using-https-in-development)
-- [Generating Dynamic `<meta>` Tags on the Server](#generating-dynamic-meta-tags-on-the-server)
-- [Pre-Rendering into Static HTML Files](#pre-rendering-into-static-html-files)
-- [Injecting Data from the Server into the Page](#injecting-data-from-the-server-into-the-page)
-- [Running Tests](#running-tests)
-  - [Filename Conventions](#filename-conventions)
-  - [Command Line Interface](#command-line-interface)
-  - [Version Control Integration](#version-control-integration)
-  - [Writing Tests](#writing-tests)
-  - [Testing Components](#testing-components)
-  - [Using Third Party Assertion Libraries](#using-third-party-assertion-libraries)
-  - [Initializing Test Environment](#initializing-test-environment)
-  - [Focusing and Excluding Tests](#focusing-and-excluding-tests)
-  - [Coverage Reporting](#coverage-reporting)
-  - [Continuous Integration](#continuous-integration)
-  - [Disabling jsdom](#disabling-jsdom)
-  - [Snapshot Testing](#snapshot-testing)
-  - [Editor Integration](#editor-integration)
-- [Developing Components in Isolation](#developing-components-in-isolation)
-  - [Getting Started with Storybook](#getting-started-with-storybook)
-  - [Getting Started with Styleguidist](#getting-started-with-styleguidist)
-- [Making a Progressive Web App](#making-a-progressive-web-app)
-  - [Opting Out of Caching](#opting-out-of-caching)
-  - [Offline-First Considerations](#offline-first-considerations)
-  - [Progressive Web App Metadata](#progressive-web-app-metadata)
-- [Analyzing the Bundle Size](#analyzing-the-bundle-size)
+
 - [Deployment](#deployment)
   - [Static Server](#static-server)
   - [Other Solutions](#other-solutions)
@@ -107,15 +64,6 @@ You almost never need to update `create-react-app` itself: it delegates all the 
 
 When you run `create-react-app`, it always creates the project with the latest version of `react-scripts` so you’ll get all the new features and improvements in newly created apps automatically.
 
-To update an existing project to a new version of `react-scripts`, [open the changelog](https://github.com/facebookincubator/create-react-app/blob/master/CHANGELOG.md), find the version you’re currently on (check `package.json` in this folder if you’re not sure), and apply the migration instructions for the newer versions.
-
-In most cases bumping the `react-scripts` version in `package.json` and running `npm install` in this folder should be enough, but it’s good to consult the [changelog](https://github.com/facebookincubator/create-react-app/blob/master/CHANGELOG.md) for potential breaking changes.
-
-We commit to keeping the breaking changes minimal so you can upgrade `react-scripts` painlessly.
-
-## Sending Feedback
-
-We are always open to [your feedback](https://github.com/facebookincubator/create-react-app/issues).
 
 ## Folder Structure
 
@@ -242,34 +190,6 @@ Note that even if you edit your `.eslintrc` file further, these changes will **o
 
 If you want to enforce a coding style for your project, consider using [Prettier](https://github.com/jlongster/prettier) instead of ESLint style rules.
 
-## Debugging in the Editor
-
-**This feature is currently only supported by [Visual Studio Code](https://code.visualstudio.com) editor.**
-
-Visual Studio Code supports debugging out of the box with Create React App. This enables you as a developer to write and debug your React code without leaving the editor, and most importantly it enables you to have a continuous development workflow, where context switching is minimal, as you don’t have to switch between tools.
-
-You would need to have the latest version of [VS Code](https://code.visualstudio.com) and VS Code [Chrome Debugger Extension](https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome) installed.
-
-Then add the block below to your `launch.json` file and put it inside the `.vscode` folder in your app’s root directory.
-
-```json
-{
-  "version": "0.2.0",
-  "configurations": [{
-    "name": "Chrome",
-    "type": "chrome",
-    "request": "launch",
-    "url": "http://localhost:3000",
-    "webRoot": "${workspaceRoot}/src",
-    "userDataDir": "${workspaceRoot}/.vscode/chrome",
-    "sourceMapPathOverrides": {
-      "webpack:///src/*": "${webRoot}/*"
-    }
-  }]
-}
-```
-
-Start your app by running `npm start`, and start debugging in VS Code by pressing `F5` or by clicking the green debug icon. You can now write code, set breakpoints, make changes to the code, and debug your newly modified code—all from your editor.
 
 ## Formatting Code Automatically
 
@@ -605,46 +525,6 @@ Now running `npm start` and `npm run build` also builds Sass files.
 
  `node-sass-chokidar` is used here as it addresses these issues.
 
-## Adding Images, Fonts, and Files
-
-With Webpack, using static assets like images and fonts works similarly to CSS.
-
-You can **`import` a file right in a JavaScript module**. This tells Webpack to include that file in the bundle. Unlike CSS imports, importing a file gives you a string value. This value is the final path you can reference in your code, e.g. as the `src` attribute of an image or the `href` of a link to a PDF.
-
-To reduce the number of requests to the server, importing images that are less than 10,000 bytes returns a [data URI](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs) instead of a path. This applies to the following file extensions: bmp, gif, jpg, jpeg, and png. SVG files are excluded due to [#1153](https://github.com/facebookincubator/create-react-app/issues/1153).
-
-Here is an example:
-
-```js
-import React from 'react';
-import logo from './logo.png'; // Tell Webpack this JS file uses this image
-
-console.log(logo); // /logo.84287d09.png
-
-function Header() {
-  // Import result is the URL of your image
-  return <img src={logo} alt="Logo" />;
-}
-
-export default Header;
-```
-
-This ensures that when the project is built, Webpack will correctly move the images into the build folder, and provide us with correct paths.
-
-This works in CSS too:
-
-```css
-.Logo {
-  background-image: url(./logo.png);
-}
-```
-
-Webpack finds all relative module references in CSS (they start with `./`) and replaces them with the final paths from the compiled bundle. If you make a typo or accidentally delete an important file, you will see a compilation error, just like when you import a non-existent JavaScript module. The final filenames in the compiled bundle are generated by Webpack from content hashes. If the file content changes in the future, Webpack will give it a different name in production so you don’t need to worry about long-term caching of assets.
-
-Please be advised that this is also a custom feature of Webpack.
-
-**It is not required for React** but many people enjoy it (and React Native uses a similar mechanism for images).<br>
-An alternative way of handling static assets is described in the next section.
 
 ## Using the `public` Folder
 
@@ -655,48 +535,6 @@ An alternative way of handling static assets is described in the next section.
 The `public` folder contains the HTML file so you can tweak it, for example, to [set the page title](#changing-the-page-title).
 The `<script>` tag with the compiled code will be added to it automatically during the build process.
 
-### Adding Assets Outside of the Module System
-
-You can also add other assets to the `public` folder.
-
-Note that we normally encourage you to `import` assets in JavaScript files instead.
-For example, see the sections on [adding a stylesheet](#adding-a-stylesheet) and [adding images and fonts](#adding-images-fonts-and-files).
-This mechanism provides a number of benefits:
-
-* Scripts and stylesheets get minified and bundled together to avoid extra network requests.
-* Missing files cause compilation errors instead of 404 errors for your users.
-* Result filenames include content hashes so you don’t need to worry about browsers caching their old versions.
-
-However there is an **escape hatch** that you can use to add an asset outside of the module system.
-
-If you put a file into the `public` folder, it will **not** be processed by Webpack. Instead it will be copied into the build folder untouched.   To reference assets in the `public` folder, you need to use a special variable called `PUBLIC_URL`.
-
-Inside `index.html`, you can use it like this:
-
-```html
-<link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
-```
-
-Only files inside the `public` folder will be accessible by `%PUBLIC_URL%` prefix. If you need to use a file from `src` or `node_modules`, you’ll have to copy it there to explicitly specify your intention to make this file a part of the build.
-
-When you run `npm run build`, Create React App will substitute `%PUBLIC_URL%` with a correct absolute path so your project works even if you use client-side routing or host it at a non-root URL.
-
-In JavaScript code, you can use `process.env.PUBLIC_URL` for similar purposes:
-
-```js
-render() {
-  // Note: this is an escape hatch and should be used sparingly!
-  // Normally we recommend using `import` for getting asset URLs
-  // as described in “Adding Images and Fonts” above this section.
-  return <img src={process.env.PUBLIC_URL + '/img/logo.png'} />;
-}
-```
-
-Keep in mind the downsides of this approach:
-
-* None of the files in `public` folder get post-processed or minified.
-* Missing files will not be called at compilation time, and will cause 404 errors for your users.
-* Result filenames won’t include content hashes so you’ll need to add query arguments or rename them every time they change.
 
 ### When to Use the `public` Folder
 
